@@ -79,6 +79,9 @@ class PropertyPurchase(models.Model):
     misc_lender_charges = models.FloatField(blank=True, null=True)
     years_amortized = models.FloatField()
 
+    def get_absolute_url(self):
+        return reverse('properties:detail', kwargs={'pk': self.pk})
+
 
 """
 Property monthly finances model tracking income and expenses for associated property. 
@@ -101,3 +104,6 @@ class PropertyIncome(models.Model):
     annual_income_growth = models.FloatField(blank=True, null=True)
     annual_appreciation = models.FloatField(blank=True, null=True)
     annual_expense_growth = models.FloatField(blank=True, null=True)
+
+    def get_absolute_url(self):
+        return reverse('properties:detail', kwargs={'pk': self.pk})

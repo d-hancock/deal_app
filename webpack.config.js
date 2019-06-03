@@ -20,7 +20,7 @@ module.exports = {
         rules: [
             {
                 test: /\.jsx?$/,
-                loader: ['react-hot', 'babel-loader'],
+                loader: 'babel-loader',
                 exclude: /node_modules/,
             },
             {

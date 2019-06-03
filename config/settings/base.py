@@ -72,7 +72,8 @@ THIRD_PARTY_APPS = [
     "allauth.account",
     "allauth.socialaccount",
     "rest_framework",
-    "webpack_loader"
+    "webpack_loader",
+    "bleach"
 ]
 LOCAL_APPS = [
     "deal_app.users.apps.UsersConfig",
