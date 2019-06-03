@@ -1,5 +1,7 @@
 from django.db import models
 from django.urls import reverse
+import uuid as uuid_lib
+
 from deal_app.portfolios.models import Portfolio
 
 """
@@ -24,16 +26,18 @@ class Property(models.Model):
     triplex = 'TRP'
     fourplex = 'FRP'
     mulifamily = 'MF'
-    prop_type_choices = [
-        (single_family_home, 'Single Family Home'),
-        (duplex, 'Duplex'),
-        (triplex, 'Triplex'),
-        (fourplex, 'Fourplex'),
-        (mulifamily, 'Multi-Family')
-    ]
+    uuid = models.UUIDField(  # Used by the API to look up the record
+        db_index=True,
+        default=uuid_lib.uuid4,
+        editable=False)
     prop_type = models.CharField(
         max_length=3,
-        choices=prop_type_choices,
+        choices=[(single_family_home, 'Single Family Home'),
+                 (duplex, 'Duplex'),
+                 (triplex, 'Triplex'),
+                 (fourplex, 'Fourplex'),
+                 (mulifamily, 'Multi-Family')
+                 ],
         default=single_family_home
     )
 
@@ -45,20 +49,6 @@ class Property(models.Model):
 
     class Meta:
         verbose_name_plural = "Properties"
-
-
-"""
-Unit detail model holding all related per unit information associated with property.
-"""
-
-
-class Unit(models.Model):
-    property = models.ForeignKey("properties.Property", on_delete=models.CASCADE)
-    number_bedrooms = models.IntegerField()
-    number_bathrooms = models.IntegerField()
-    total_sq_foot = models.IntegerField()
-    year_built = models.IntegerField()
-    unit_rent = models.FloatField()
 
 
 """
@@ -78,6 +68,10 @@ class PropertyPurchase(models.Model):
     lender_points = models.FloatField(blank=True, null=True)
     misc_lender_charges = models.FloatField(blank=True, null=True)
     years_amortized = models.FloatField()
+    uuid = models.UUIDField(  # Used by the API to look up the record
+        db_index=True,
+        default=uuid_lib.uuid4,
+        editable=False)
 
     def get_absolute_url(self):
         return reverse('properties:detail', kwargs={'pk': self.pk})
@@ -104,6 +98,10 @@ class PropertyIncome(models.Model):
     annual_income_growth = models.FloatField(blank=True, null=True)
     annual_appreciation = models.FloatField(blank=True, null=True)
     annual_expense_growth = models.FloatField(blank=True, null=True)
+    uuid = models.UUIDField(  # Used by the API to look up the record
+        db_index=True,
+        default=uuid_lib.uuid4,
+        editable=False)
 
     def get_absolute_url(self):
         return reverse('properties:detail', kwargs={'pk': self.pk})

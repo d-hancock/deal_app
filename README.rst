@@ -1,22 +1,29 @@
 Deal App
 ========
 
-Application for analyzing realestate deals
+Application for analyzing real estate deals and monitoring portfolio performance.
 
-.. image:: https://img.shields.io/badge/built%20with-Cookiecutter%20Django-ff69b4.svg
-     :target: https://github.com/pydanny/cookiecutter-django/
-     :alt: Built with Cookiecutter Django
-.. image:: https://img.shields.io/badge/code%20style-black-000000.svg
-     :target: https://github.com/ambv/black
-     :alt: Black code style
 
 
 Settings
 --------
 
-Moved to settings_.
+The settings module for the project is located at /config/settings/base.
 
-.. _settings: http://cookiecutter-django.readthedocs.io/en/latest/settings.html
+The project relies heavily on environment variables for configuration.
+
+This include a minimum:
+
+POSTGRES_HOST=
+POSTGRES_PORT=
+POSTGRES_DB=
+POSTGRES_USER=
+POSTGRES_PASSWORD=
+DATABASE_URL=
+CELERY_BROKER_URL=
+SEKRETKEY=
+
+
 
 Basic Commands
 --------------
@@ -24,7 +31,7 @@ Basic Commands
 Setting Up Your Users
 ^^^^^^^^^^^^^^^^^^^^^
 
-* To create a **normal user account**, just go to Sign Up and fill out the form. Once you submit it, you'll see a "Verify Your E-mail Address" page. Go to your console to see a simulated email verification message. Copy the link into your browser. Now the user's email should be verified and ready to go.
+* To create a **normal user account**, just go to Sign Up and fill out the form. Once you submit it, you'll see a "Verify Your E-mail Address" page. Go to your console to see a simulated email verification message. Copy the link into your browser. Now the user's email should be verified and ready to go. At this stage
 
 * To create an **superuser account**, use this command::
 
@@ -43,6 +50,8 @@ Running type checks with mypy:
 
 Test coverage
 ^^^^^^^^^^^^^
+Unit tests are inplace for account features and authorization.
+
 
 To run the tests, check your test coverage, and generate an HTML coverage report::
 
@@ -56,13 +65,6 @@ Running tests with py.test
 ::
 
   $ pytest
-
-Live reloading and Sass CSS compilation
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-Moved to `Live reloading and SASS compilation`_.
-
-.. _`Live reloading and SASS compilation`: http://cookiecutter-django.readthedocs.io/en/latest/live-reloading-and-sass-compilation.html
 
 
 
@@ -78,7 +80,7 @@ To run a celery worker:
     cd deal_app
     celery -A config.celery_app worker -l info
 
-Please note: For Celery's import magic to work, it is important *where* the celery commands are run. If you are in the same folder with *manage.py*, you should be right.
+
 
 
 
@@ -86,7 +88,7 @@ Please note: For Celery's import magic to work, it is important *where* the cele
 Email Server
 ^^^^^^^^^^^^
 
-In development, it is often nice to be able to see emails that are being sent from your application. If you choose to use `MailHog`_ when generating the project a local SMTP server with a web interface will be available.
+The project uses AllAuth for authentication so it require it is often nice to be able to see emails that are being sent from your application. If you choose to use `MailHog`_ when generating the project a local SMTP server with a web interface will be available.
 
 #. `Download the latest MailHog release`_ for your OS.
 
