@@ -38,7 +38,7 @@ class Property(models.Model):
     )
 
     def __str__(self):
-        return self.portfolio.name + self.street_address
+        return self.portfolio.name + ' ' + self.street_address + ' ' + self.state
 
     def get_absolute_url(self):
         return reverse('properties:detail', kwargs={'pk': self.pk})

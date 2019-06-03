@@ -10,6 +10,11 @@ from deal_app.portfolios.views import (
 app_name = "portfolios"
 urlpatterns = [
     path(
+        "create/",
+        view=portfolio_create_view,
+        name="create"
+    ),
+    path(
         "",
         view=portfolio_list_view,
         name="list"

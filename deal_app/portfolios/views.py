@@ -1,15 +1,25 @@
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 from django.views.generic import DetailView, UpdateView, ListView, DeleteView, CreateView
 from django.shortcuts import render, get_object_or_404, redirect
+
 from deal_app.portfolios.forms import PortfolioFrom
+from deal_app.portfolios.models import Portfolio
 
-from .models import Portfolio
 
-
-class PortfolioCreateView(LoginRequiredMixin, CreateView):
-    model = Portfolio
+class PortfolioCreateView(CreateView):
     form_class = PortfolioFrom
+    template_name = 'portfolios/portfolio_create.html'
+
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        return super(PortfolioCreateView, self).dispatch(request, *args, **kwargs)
+
+    def get_form(self, form_class=None):
+        form = super(PortfolioCreateView, self).get_form(form_class)
+        form.fields['user'] = self.request.user
 
 
 portfolio_create_view = PortfolioCreateView.as_view()

@@ -5,7 +5,8 @@ from deal_app.properties.views import (
     property_update_view,
     property_delete_view,
     property_income_update_view,
-    property_purchase_update_view
+    property_purchase_update_view,
+    property_create_view
 )
 
 app_name = "properties"
@@ -21,17 +22,22 @@ urlpatterns = [
         name="list"
     ),
     path(
-        "<int:pk>/update/",
-        view=property_update_view,
-        name="update-basic"
+        "create/",
+        view=property_create_view,
+        name="create-property"
     ),
     path(
-        "<int:pk>/update-income/",
+        "update/<int:pk>",
+        view=property_update_view,
+        name="update-basic-info"
+    ),
+    path(
+        "update-income/<int:pk>/",
         view=property_income_update_view,
         name="update-income"
     ),
     path(
-        "<int:pk>/edit-purchase/",
+        "edit-purchase/<int:pk>/",
         view=property_purchase_update_view,
         name="edit-purchase"
     ),
