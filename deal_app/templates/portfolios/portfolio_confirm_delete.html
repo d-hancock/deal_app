@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+  <h1>Are you sure you would like to delete the Portfolio "{{ object.name }}"?</h1>
+
+  <form action="." method="POST">
+    {% csrf_token %}
+
+    <div class="row justify-content-around">
+      <input class="btn btn-primary col-3" type="submit" value="Yes"/>
+      <a class="btn btn-danger col-3" href="{% url 'portfolios:list' %}">Nevermind</a>
+    </div>
+
+
+  </form>
+
+{% endblock %}
