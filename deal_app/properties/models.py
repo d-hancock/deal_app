@@ -37,6 +37,12 @@ class Property(models.Model):
         default=single_family_home
     )
 
+    def __str__(self):
+        return self.portfolio.name + self.street_address
+
+    def get_absolute_url(self):
+        return reverse('properties:detail', kwargs={'pk': self.pk})
+
     class Meta:
         verbose_name_plural = "Properties"
 
